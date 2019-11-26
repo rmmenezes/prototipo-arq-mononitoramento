@@ -1,1 +1,0 @@
-# prototipo_arq_mononitoramento
