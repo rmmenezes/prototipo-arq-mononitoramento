@@ -13,7 +13,7 @@ if __name__ == "__main__":
 
   # conectando ao banco de dados MongoDB#
   mongoDBclient = pymongo.MongoClient("mongodb://localhost:27017/")
-  mongoDBdatabase = mongoDBclient[str(nomeIndex)]
+  mongoDBdatabase = mongoDBclient[str("netTCP")]
   mongoDBCollection = mongoDBdatabase["traffic"]
   mydoc = mongoDBCollection.find()
 
