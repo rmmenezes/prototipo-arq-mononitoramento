@@ -36,10 +36,10 @@ services:
               memory: 2147M
               cpus: '1'
       volumes:
+          - ./shared:/usr/share/elasticsearch/shared/
           - type: bind
             source: ./elasticsearch/config/elasticsearch.yml
             target: /usr/share/elasticsearch/config/elasticsearch.yml
-            read_only: true
           - type: volume
             source: elasticsearch
             target: /usr/share/elasticsearch/data
@@ -68,10 +68,10 @@ services:
               memory: 1073M
               cpus: '0.5'
       volumes:
+          - ./shared:/usr/share/kibana/tmp
           - type: bind
             source: ./kibana/config/kibana.yml
             target: /usr/share/kibana/config/kibana.yml
-            read_only: true
       ports: 
           - "5601:5601"
       configs:
