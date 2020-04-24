@@ -2,41 +2,41 @@ version: '3.3'
 
 services: 
     # Constroi o container com o Mongo DB
-    mongodb:
-      build:
-        context: .
-        dockerfile: mongodb/Dockerfile
-      container_name: mongodb
-      deploy:
-          resources:
-            limits:
-              memory: 1073M
-              cpus: '1'
-      restart: always
-      volumes:
-          - type: volume
-            source: mongodb
-            target: /data/db
-      ports: 
-          - "27017:27017" 
-      environment:
-          MONGO_INITDB_ROOT_USERNAME: root
-          MONGO_INITDB_ROOT_PASSWORD: password
+    # mongodb:
+    #   build:
+    #     context: .
+    #     dockerfile: mongodb/Dockerfile
+    #   container_name: mongodb
+    #   deploy:
+    #       resources:
+    #         limits:
+    #           memory: 1073M
+    #           cpus: '1'
+    #   restart: always
+    #   volumes:
+    #       - type: volume
+    #         source: mongodb
+    #         target: /data/db
+    #   ports: 
+    #       - "27017:27017" 
+    #   environment:
+    #       MONGO_INITDB_ROOT_USERNAME: root
+    #       MONGO_INITDB_ROOT_PASSWORD: password
 
-            
     # Constroi o container com o Elasticsearch
     elasticsearch:
       build:
           context: .
           dockerfile: elasticsearch/Dockerfile
       container_name: elasticsearch
-      deploy:
-          resources:
-            limits:
-              memory: 2147M
-              cpus: '1'
+      # deploy:
+      #     resources:
+      #       limits:
+      #         memory: 2147M
+      #         cpus: '1'
       volumes:
           - ./shared:/usr/share/elasticsearch/shared/
+          - ./elasticsearch/certs:/usr/share/elasticsearch/config/certs
           - type: bind
             source: ./elasticsearch/config/elasticsearch.yml
             target: /usr/share/elasticsearch/config/elasticsearch.yml
@@ -47,14 +47,16 @@ services:
           - "9200:9200"
           - "9300:9300"
       environment:
-          ES_JAVA_OPTS: "-Xmx1g -Xms1g"
+          ES_JAVA_OPTS: "-Xmx256m -Xms256m"
           ELASTIC_PASSWORD: password
+          # Use single node discovery in order to disable production mode and avoid bootstrap checks
+          # see https://www.elastic.co/guide/en/elasticsearch/reference/current/bootstrap-checks.html
           discovery.type: single-node
       configs:
           - source: elastic_config
             target: /usr/share/elasticsearch/config/elasticsearch.yml
-      depends_on:
-          - mongodb
+      # depends_on:
+      #     - mongodb
     
     # Constroi o container com o Kibana
     kibana:
@@ -62,16 +64,18 @@ services:
         context: .
         dockerfile: kibana/Dockerfile
       container_name: kibana
-      deploy:
-          resources:
-            limits:
-              memory: 1073M
-              cpus: '0.5'
+      # deploy:
+      #     resources:
+      #       limits:
+      #         memory: 1073M
+      #         cpus: '0.5'
       volumes:
-          - ./shared:/usr/share/kibana/tmp
+          - ./kibana/certs:/usr/share/kibana/config/certs
+          - ./shared:/usr/share/kibana/shared/
           - type: bind
             source: ./kibana/config/kibana.yml
             target: /usr/share/kibana/config/kibana.yml
+            read_only : true
       ports: 
           - "5601:5601"
       configs:
@@ -80,12 +84,52 @@ services:
       depends_on:
           - elasticsearch
 
+    # Constroi o container com o Logstash
+    logstash:
+      build:
+        context: .
+        dockerfile: logstash/Dockerfile
+      container_name: logstash
+      # deploy:
+      #   resources:
+      #     limits:
+      #       memory: 1073M
+      #       cpus: '0.5'
+      ports: 
+          - "5000:5000/tcp"
+          - "5000:5000/udp"
+          - "9600:9600"
+      volumes:
+          - ./logstash/certs:/usr/share/logstash/config/certs
+          - type: bind
+            source: ./logstash/config/logstash.yml
+            target: /usr/share/logstash/config/logstash.yml
+            read_only: true
+          - type: bind
+            source: ./logstash/pipeline
+            target: /usr/share/logstash/pipeline
+            read_only: true
+      environment:
+          ES_JAVA_OPTS: "-Xmx2g -Xms2g"
+      configs:
+          - source: logstash_config
+            target: /usr/share/logstash/config/logstash.yml
+          - source: logstash_pipeline
+            target: /usr/share/logstash/pipeline/logstash.conf
+      depends_on:
+          - elasticsearch
+        
 configs:
-  elastic_config:
-      file: ./elasticsearch/config/elasticsearch.yml
-  kibana_config:
-      file: ./kibana/config/kibana.yml
+    elastic_config:
+        file: ./elasticsearch/config/elasticsearch.yml
+    logstash_config:
+        file: ./logstash/config/logstash.yml
+    logstash_pipeline:
+        file: ./logstash/pipeline/logstash.conf
+    kibana_config:
+        file: ./kibana/config/kibana.yml
+
 
 volumes: 
-  mongodb:
+  # mongodb:
   elasticsearch:

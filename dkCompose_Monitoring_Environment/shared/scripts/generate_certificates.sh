@@ -3,11 +3,9 @@
 # Script para gerar certificados digitais assinados pelo Elasticsearch
 
 yum install openssl -y
-mkdir -p /usr/share/elasticsearch/shared
-mkdir -p /usr/share/elasticsearch/config/certs
 
-/usr/share/elasticsearch/bin/elasticsearch-certutil ca --ca-dn CN=localhost  --pass "" --out /usr/share/elasticsearch/shared/elastic-stack-ca.p12
-/usr/share/elasticsearch/bin/elasticsearch-certutil cert --ca /usr/share/elasticsearch/shared/elastic-stack-ca.p12  --pass "" --ca-pass "" --out /usr/share/elasticsearch/shared/elastic-certificates.p12
+/usr/share/elasticsearch/bin/elasticsearch-certutil ca --ca-dn CN=localhost  --pass "changeme" --out /usr/share/elasticsearch/shared/elastic-stack-ca.p12
+/usr/share/elasticsearch/bin/elasticsearch-certutil cert --ca /usr/share/elasticsearch/shared/elastic-stack-ca.p12  --pass "" --ca-pass "changeme" --out /usr/share/elasticsearch/shared/elastic-certificates.p12
 yes | /usr/share/elasticsearch/bin/elasticsearch-setup-passwords auto > /usr/share/elasticsearch/shared/passwords.txt
 
 
