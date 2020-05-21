@@ -2,9 +2,24 @@
 # For more information on multiple pipelines, see the documentation:
 #   https://www.elastic.co/guide/en/logstash/current/multiple-pipelines.html
 
-- pipeline.id: pipelineElasticSearch
-  path.config: "/etc/logstash/conf.d/pipelineElasticSearch.conf"
 
-- pipeline.id: pipelineMongoDB
-  path.config: "/etc/logstash/conf.d/pipelineMongoDB.conf"
+# Pipelines para o fluxo de rede 
+- pipeline.id: mainNetwork
+  path.config: "/etc/logstash/conf.d/network/main.conf"
+
+- pipeline.id: pipelineNetworkElasticSearch
+  path.config: "/etc/logstash/conf.d/network/pipelineElasticSearch.conf"
+
+- pipeline.id: pipelineNetworkMongoDB
+  path.config: "/etc/logstash/conf.d/network/pipelineMongoDB.conf"
   
+
+# Pipelines para o fluxo de log
+# - pipeline.id: mainLog
+#   path.config: "/etc/logstash/conf.d/log/main.conf"
+
+# - pipeline.id: pipelineLogElasticSearch
+#   path.config: "/etc/logstash/conf.d/log/pipelineElasticSearch.conf"
+
+# - pipeline.id: pipelineLogMongoDB
+#   path.config: "/etc/logstash/conf.d/log/pipelineMongoDB.conf"

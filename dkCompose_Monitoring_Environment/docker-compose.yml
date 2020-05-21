@@ -21,8 +21,7 @@ services:
         MONGO_INITDB_ROOT_PASSWORD: root
         MONGO_INITDB_DATABASE: admin
       volumes: 
-        - ./logstash/pipeline/pipelineElasticSearch.conf:/etc/logstash/conf.d/pipelineElasticSearch.conf
-        - ./logstash/pipeline/pipelineMongoDB.conf:/etc/logstash/conf.d/pipelineMongoDB.conf
+        - ./logstash/pipeline/:/etc/logstash/conf.d/
         - ./logstash/config/logstash.yml:/etc/logstash/logstash.yml
         - ./logstash/config/pipelines.yml:/etc/logstash/pipelines.yml
         - ./logstash/certs/:/etc/logstash/certs/
