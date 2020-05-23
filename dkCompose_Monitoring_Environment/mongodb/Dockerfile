@@ -14,3 +14,4 @@ RUN apt-get update && apt-get install logstash
 RUN /usr/share/logstash/bin/logstash-plugin install --version=3.1.5 logstash-output-mongodb
 RUN mkdir /etc/logstash/certs
 RUN service logstash start
+RUN service logstash restart
