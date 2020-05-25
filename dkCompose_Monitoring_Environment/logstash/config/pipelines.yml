@@ -13,13 +13,3 @@
 - pipeline.id: pipelineNetworkMongoDB
   path.config: "/etc/logstash/conf.d/network/pipelineMongoDB.conf"
   
-
-# Pipelines para o fluxo de log
-# - pipeline.id: mainLog
-#   path.config: "/etc/logstash/conf.d/log/main.conf"
-
-# - pipeline.id: pipelineLogElasticSearch
-#   path.config: "/etc/logstash/conf.d/log/pipelineElasticSearch.conf"
-
-# - pipeline.id: pipelineLogMongoDB
-#   path.config: "/etc/logstash/conf.d/log/pipelineMongoDB.conf"
