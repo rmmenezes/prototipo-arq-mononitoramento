@@ -21,10 +21,13 @@ services:
         MONGO_INITDB_ROOT_PASSWORD: root
         MONGO_INITDB_DATABASE: admin
       volumes: 
+        - ./mongodb/certs/:/certs/
+        - ./mongodb/config/mongod.conf:/etc/mongod.conf
         - ./logstash/pipeline/:/etc/logstash/conf.d/
         - ./logstash/config/logstash.yml:/etc/logstash/logstash.yml
         - ./logstash/config/pipelines.yml:/etc/logstash/pipelines.yml
         - ./logstash/certs/:/etc/logstash/certs/
+      command: ["-f", "/etc/mongod.conf"]
 
 
     # Constroi o container com o Elasticsearch
