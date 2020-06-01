@@ -13,3 +13,12 @@
 - pipeline.id: pipelineNetworkMongoDB
   path.config: "/etc/logstash/conf.d/network/pipelineMongoDB.conf"
   
+# Pipelines para o fluxo de HIDS (Ossec)
+- pipeline.id: mainHIDS
+  path.config: "/etc/logstash/conf.d/hids/main.conf"
+
+- pipeline.id: pipelineMetricsElasticSearch
+  path.config: "/etc/logstash/conf.d/hids/pipelineElasticSearch.conf"
+
+- pipeline.id: pipelineMetricsMongoDB
+  path.config: "/etc/logstash/conf.d/hids/pipelineMongoDB.conf"
