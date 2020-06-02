@@ -1,6 +1,23 @@
 version: '3.3'
 
 services: 
+
+    #Constroi o container com o Mongo DB
+    logstash:
+      build:
+        context: .
+        dockerfile: logstash-trasnferencia/Dockerfile
+      container_name: logstash-trasnferencia
+      ports:
+        - 9601:9601
+        - 5001:5001
+      volumes: 
+        - ./logstash-trasnferencia/config/logstash.yml:/usr/share/logstash/config/logstash.yml
+        - ./logstash-trasnferencia/config/pipelines.yml:/usr/share/logstash/config/pipelines.yml
+        - ./logstash-trasnferencia/pipeline/:/usr/share/logstash/pipeline/
+        - ./logstash-trasnferencia/certs/:/usr/share/logstash/certs/
+
+
     #Constroi o container com o Mongo DB
     mongodb:
       build:
