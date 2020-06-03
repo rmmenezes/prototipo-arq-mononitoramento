@@ -2,21 +2,48 @@ version: '3.3'
 
 services: 
 
-    #Constroi o container com o Mongo DB
+    #Constroi o container com o Logstash de Borda
+    logstash-borda:
+      build:
+        context: .
+        dockerfile: logstash-borda/Dockerfile
+      container_name: logstash-borda
+      deploy:
+        resources:
+          limits:
+            memory: 700M
+            cpus: '0.25'
+      ports:
+        - 9600:9600
+        - 5000:5000 # porta de entrada para logs de rede
+        - 5001:5001 # porta de entrada para logs hids
+      volumes: 
+        - ./logstash-borda/config/logstash.yml:/usr/share/logstash/config/logstash.yml
+        - ./logstash-borda/config/pipelines.yml:/usr/share/logstash/config/pipelines.yml
+        - ./logstash-borda/certs/:/usr/share/logstash/certs/
+        - ./logstash-borda/pipeline/:/usr/share/logstash/pipeline/
+
+    #Constroi o container com o Logstash de Transferencia
     logstash-trasnferencia:
       build:
         context: .
         dockerfile: logstash-trasnferencia/Dockerfile
       container_name: logstash-trasnferencia
+      deploy:
+        resources:
+          limits:
+            memory: 700M
+            cpus: '0.25'
       ports:
         - 9601:9601
-        - 5001:5001
+        - 5100:5100 # porta de entrada para possiveis ajustes no logstash via API (ainda não configurado)
       volumes: 
         - ./logstash-trasnferencia/config/logstash.yml:/usr/share/logstash/config/logstash.yml
         - ./logstash-trasnferencia/config/pipelines.yml:/usr/share/logstash/config/pipelines.yml
+        - ./logstash-trasnferencia/config/jdbc-input-mongodb/:/usr/share/logstash/jdbc-input-mongodb/
         - ./logstash-trasnferencia/pipeline/:/usr/share/logstash/pipeline/
         - ./logstash-trasnferencia/certs/:/usr/share/logstash/certs/
-        - ./logstash-trasnferencia/jdbc-input-mongodb/:/usr/share/logstash/jdbc-input-mongodb/
+        - ./logstash-trasnferencia/consultas/:/usr/share/logstash/consultas/
 
 
     #Constroi o container com o Mongo DB
@@ -25,16 +52,14 @@ services:
         context: .
         dockerfile: mongodb/Dockerfile
       container_name: mongodb
+      deploy:
+        resources:
+          limits:
+            memory: 1073M
+            cpus: '1'
       restart: always
       ports:
         - 27017:27017
-        - 9600:9600
-        - 5000:5000
-        - 5002:5002
-        - 5004:5004
-        - 5044:5044
-        - 5006:5006
-        - 4560:4560
       environment:
         MONGO_INITDB_ROOT_USERNAME: root
         MONGO_INITDB_ROOT_PASSWORD: root
@@ -42,10 +67,6 @@ services:
       volumes: 
         - ./mongodb/certs/:/certs/
         - ./mongodb/config/mongod.conf:/etc/mongod.conf
-        - ./logstash/pipeline/:/etc/logstash/conf.d/
-        - ./logstash/config/logstash.yml:/etc/logstash/logstash.yml
-        - ./logstash/config/pipelines.yml:/etc/logstash/pipelines.yml
-        - ./logstash/certs/:/etc/logstash/certs/
       command: ["-f", "/etc/mongod.conf"]
 
 
@@ -55,6 +76,11 @@ services:
           context: .
           dockerfile: elasticsearch/Dockerfile
       container_name: elasticsearch
+      deploy:
+        resources:
+          limits:
+            memory: 2073M
+            cpus: '1'
       volumes:
           - ./shared:/usr/share/elasticsearch/shared/
           - ./elasticsearch/certs:/usr/share/elasticsearch/config/certs
@@ -82,6 +108,11 @@ services:
         context: .
         dockerfile: kibana/Dockerfile
       container_name: kibana
+      deploy:
+        resources:
+          limits:
+            memory: 2073M
+            cpus: '1'
       volumes:
           - ./kibana/certs:/usr/share/kibana/config/certs
           - ./shared:/usr/share/kibana/shared/

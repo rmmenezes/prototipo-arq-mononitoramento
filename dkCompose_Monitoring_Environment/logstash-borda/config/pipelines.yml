@@ -5,20 +5,20 @@
 
 # Pipelines para o fluxo de rede 
 - pipeline.id: mainNetwork
-  path.config: "/etc/logstash/conf.d/network/main.conf"
+  path.config: "/usr/share/logstash/pipeline/network/main.conf"
 
 - pipeline.id: pipelineNetworkElasticSearch
-  path.config: "/etc/logstash/conf.d/network/pipelineElasticSearch.conf"
+  path.config: "/usr/share/logstash/pipeline/network/pipelineElasticSearch.conf"
 
 - pipeline.id: pipelineNetworkMongoDB
-  path.config: "/etc/logstash/conf.d/network/pipelineMongoDB.conf"
+  path.config: "/usr/share/logstash/pipeline/network/pipelineMongoDB.conf"
   
 # Pipelines para o fluxo de HIDS (Ossec)
 - pipeline.id: mainHIDS
-  path.config: "/etc/logstash/conf.d/hids/main.conf"
+  path.config: "/usr/share/logstash/pipeline/hids/main.conf"
 
 - pipeline.id: pipelineMetricsElasticSearch
-  path.config: "/etc/logstash/conf.d/hids/pipelineElasticSearch.conf"
+  path.config: "/usr/share/logstash/pipeline/hids/pipelineElasticSearch.conf"
 
 - pipeline.id: pipelineMetricsMongoDB
-  path.config: "/etc/logstash/conf.d/hids/pipelineMongoDB.conf"
+  path.config: "/usr/share/logstash/pipeline/hids/pipelineMongoDB.conf"
