@@ -8,11 +8,11 @@ services:
         context: .
         dockerfile: logstash-borda/Dockerfile
       container_name: logstash-borda
-      deploy:
-        resources:
-          limits:
-            memory: 700M
-            cpus: '0.25'
+      # deploy:
+      #   resources:
+      #     limits:
+      #       memory: 1073M
+      #       cpus: '0.5'
       ports:
         - 9600:9600
         - 5000:5000 # porta de entrada para logs de rede
@@ -24,26 +24,26 @@ services:
         - ./logstash-borda/pipeline/:/usr/share/logstash/pipeline/
 
     #Constroi o container com o Logstash de Transferencia
-    logstash-trasnferencia:
-      build:
-        context: .
-        dockerfile: logstash-trasnferencia/Dockerfile
-      container_name: logstash-trasnferencia
-      deploy:
-        resources:
-          limits:
-            memory: 700M
-            cpus: '0.25'
-      ports:
-        - 9601:9601
-        - 5100:5100 # porta de entrada para possiveis ajustes no logstash via API (ainda não configurado)
-      volumes: 
-        - ./logstash-trasnferencia/config/logstash.yml:/usr/share/logstash/config/logstash.yml
-        - ./logstash-trasnferencia/config/pipelines.yml:/usr/share/logstash/config/pipelines.yml
-        - ./logstash-trasnferencia/config/jdbc-input-mongodb/:/usr/share/logstash/jdbc-input-mongodb/
-        - ./logstash-trasnferencia/pipeline/:/usr/share/logstash/pipeline/
-        - ./logstash-trasnferencia/certs/:/usr/share/logstash/certs/
-        - ./logstash-trasnferencia/consultas/:/usr/share/logstash/consultas/
+    # logstash-trasnferencia:
+    #   build:
+    #     context: .
+    #     dockerfile: logstash-trasnferencia/Dockerfile
+    #   container_name: logstash-trasnferencia
+    #   deploy:
+    #     resources:
+    #       limits:
+    #         memory: 700M
+    #         cpus: '0.25'
+    #   ports:
+    #     - 9601:9601
+    #     - 5100:5100 # porta de entrada para possiveis ajustes no logstash via API (ainda não configurado)
+    #   volumes: 
+    #     - ./logstash-trasnferencia/config/logstash.yml:/usr/share/logstash/config/logstash.yml
+    #     - ./logstash-trasnferencia/config/pipelines.yml:/usr/share/logstash/config/pipelines.yml
+    #     - ./logstash-trasnferencia/config/jdbc-input-mongodb/:/usr/share/logstash/jdbc-input-mongodb/
+    #     - ./logstash-trasnferencia/pipeline/:/usr/share/logstash/pipeline/
+    #     - ./logstash-trasnferencia/certs/:/usr/share/logstash/certs/
+    #     - ./logstash-trasnferencia/consultas/:/usr/share/logstash/consultas/
 
 
     #Constroi o container com o Mongo DB
@@ -79,7 +79,7 @@ services:
       deploy:
         resources:
           limits:
-            memory: 2073M
+            memory: 1073M
             cpus: '1'
       volumes:
           - ./shared:/usr/share/elasticsearch/shared/
