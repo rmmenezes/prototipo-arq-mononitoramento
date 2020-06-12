@@ -1,7 +1,7 @@
 # Este arquivo pode ser alterado para atender faixas de ip locais (Rede Privada) que atuam na rede, e tem como objeitvo 
 # listar faixas de IPs locais não publicos e acrecentar informaçoes de geolocalização 
 
-
+## ------ IPV4 ------- ##
 # IPV4 Classe A
 '(^10\.)|' : '{"timezone":"America/Sao_Paulo","continent_code":"BR","country_name":"Brazil","country_code2":"BR","country_code3":"BR","region_name":"Paraná","latitude":-24.043740,"longitude":-52.378071,"location":{"lat":-24.043740,"lon":-52.378071}}'
 
@@ -13,3 +13,6 @@
 
 # LocalHost
 '(^127\.)|' : '{"timezone":"America/Sao_Paulo","continent_code":"BR","country_name":"Brazil","country_code2":"BR","country_code3":"BR","region_name":"Paraná","latitude":-24.043740,"longitude":-52.378071,"location":{"lat":-24.043740,"lon":-52.378071}}'
+
+## ------ IPV6 ------- ##
+
