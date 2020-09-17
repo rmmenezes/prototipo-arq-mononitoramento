@@ -1,0 +1,3 @@
+.es(q=*, index = network-tcp-ip).label("Tráfego Total").lines(width=5).color(#A6ACAF),
+.es(q='packet_protocol.Keyword:tcp', index = network-tcp-ip).label("Fluxo de Tráfego - TCP").lines(width=3),
+.es(q='packet_protocol.Keyword:udp', index = network-tcp-ip).label("Fluxo de Tráfego - UDP").lines(width=2),

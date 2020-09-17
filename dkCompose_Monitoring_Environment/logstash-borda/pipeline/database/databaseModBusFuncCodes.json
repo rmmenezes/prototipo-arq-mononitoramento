@@ -1,0 +1,26 @@
+{
+  "1": {
+    "function_name": "Read Coil"
+  },
+  "2": {
+    "function_name": "Read Discrete Input"
+  },
+  "3": {
+    "function_name": "Read Holding Registers"
+  },
+  "4": {
+    "function_name": "Read Input Registers"
+  },
+  "5": {
+    "function_name": "Write Single Coil"
+  },
+  "6": {
+    "function_name": "Write Single Holding Register"
+  },
+  "15": {
+    "function_name": "Write Multiple Coils"
+  },
+  "16": {
+    "function_name": "Write Multiple Holding Registers"
+  }
+}

@@ -8,3 +8,4 @@ elasticsearch.hosts: ["https://elasticsearch:9200"] # https, not http
 elasticsearch.username: rafael_kibana
 elasticsearch.password: password # the password for user kibana
 elasticsearch.ssl.verificationMode: none
+vega.enableExternalUrls: true

@@ -586,9 +586,5 @@
   "255": {
     "Keyword": "Reserved",
     "Protocol": ""
-  },
-  "144-252": {
-    "Keyword": "",
-    "Protocol": "Unassigned"
   }
 }
