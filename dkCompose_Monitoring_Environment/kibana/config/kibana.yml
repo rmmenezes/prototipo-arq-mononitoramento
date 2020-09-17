@@ -5,7 +5,7 @@ server.ssl.key: /usr/share/kibana/config/certs/kibana.key.pem
 server.ssl.certificate: /usr/share/kibana/config/certs/kibana.crt.pem
 
 elasticsearch.hosts: ["https://elasticsearch:9200"] # https, not http
-elasticsearch.username: rafael_kibana
-elasticsearch.password: password # the password for user kibana
+elasticsearch.username: rafael
+elasticsearch.password: rafael # the password for user kibana
 elasticsearch.ssl.verificationMode: none
 vega.enableExternalUrls: true
