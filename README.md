@@ -1,4 +1,4 @@
-# ARQUITETURA DE MONITORAMENTO PARA SEGURANÇA CIBERNÉTICA DE SISTEMAS INDUSTRIAIS :computer: :bar_chart:
+# Arquitetura De Monitoramento Para Segurança Cibernética De Sistemas Industriais :computer: :bar_chart:
 
 O objetivo do trabalho é propor e desenvolver uma arquitetura de monitoramento de segurança cibernética para sistemas industriais. Desta forma, foi desenvolvida uma arquitetura de monitoramento para sistemas industriais, que se destaca por ser modular e por facilitar o acoplamento de diferentes dispositivos e tecnologias do setor industrial. A arquitetura contribui com a segurança cibernética em sistemas industriais e em mitigar os danos causados por ciberataques e anomalias.
 
